@@ -22,5 +22,15 @@
     { word: "switch",    pron: "斯威奇",   meaning: "切换：拿一个值去匹配下面的分支",     where: "switch (input) { }",         day: 2 },
     { word: "case",      pron: "凯斯",     meaning: "情况：要和 switch 的值逐字比对的分支", where: "case \"A\": ...",           day: 2 },
     { word: "default",   pron: "迪佛特",   meaning: "默认：所有 case 都不匹配时走这里",   where: "default: ...",               day: 2 },
-    { word: "break",     pron: "布雷克",   meaning: "跳出：结束当前分支，防止穿透",       where: "case \"A\": ... break;",     day: 2 }
+    { word: "break",     pron: "布雷克",   meaning: "跳出：结束当前分支，防止穿透",       where: "case \"A\": ... break;",     day: 2 },
+    { word: "for",       pron: "佛尔",     meaning: "为…：for 循环的入口关键字",          where: "for (int i = 1; i <= 100; i++)", day: 3 },
+    { word: "loop",      pron: "路普",     meaning: "循环：一段代码重复执行",              where: "for 循环 / while 循环",       day: 3 },
+    { word: "iterate",   pron: "伊特瑞特", meaning: "迭代：重复执行一轮",                  where: "每轮循环叫一次迭代",          day: 3 },
+    { word: "increment", pron: "因克瑞门特", meaning: "自增、增量：每次加多少",             where: "i++（每次加 1）",            day: 3 },
+    { word: "continue",  pron: "肯提纽",   meaning: "继续：跳过本轮剩下的语句，进入下一轮", where: "if (...) continue;",          day: 3 },
+    { word: "modulo",    pron: "摩丢楼",   meaning: "取模：求余数",                        where: "i % 2 == 0",                 day: 3 },
+    { word: "%",         pron: "取模符号", meaning: "求余数运算符，读作 modulo",           where: "10 % 3 的结果是 1",          day: 3 },
+    { word: "ternary",   pron: "特纳瑞",   meaning: "三元的：三元运算符有三个部分",        where: "条件 ? 值1 : 值2",            day: 3 },
+    { word: "even",      pron: "伊文",     meaning: "偶数的",                            where: "i % 2 == 0（偶数）",         day: 3 },
+    { word: "odd",       pron: "奥德",     meaning: "奇数的",                            where: "i % 2 != 0（奇数）",         day: 3 }
   ];
