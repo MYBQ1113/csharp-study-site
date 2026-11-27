@@ -485,6 +485,15 @@ function fetchText(file) {
   });
 }
 
+// 同一份文档只请求一次：首屏预加载与页面路由共用
+const docCache = {};
+function fetchDoc(file) {
+  if (!docCache[file]) {
+    docCache[file] = fetchText(file).catch(err => { delete docCache[file]; throw err; });
+  }
+  return docCache[file];
+}
+
 function parsePlan(md) {
   const result = { day: "", date: "", practice: [], accept: [], next: "", milestones: [] };
 
@@ -1366,17 +1375,17 @@ function renderReview() {
 function ensureKline() {
   const jobs = [];
   if (!state.planRaw) {
-    jobs.push(fetchText("plan.md").then(md => {
+    jobs.push(fetchDoc("plan.md").then(md => {
       state.planRaw = md; state.plan = state.plan || parsePlan(md);
     }));
   }
   if (!state.dailyRaw) {
-    jobs.push(fetchText("daily.md").then(md => {
+    jobs.push(fetchDoc("daily.md").then(md => {
       state.dailyRaw = md; state.daily = state.daily || parseDaily(md);
     }));
   }
   if (!state.errorsRaw) {
-    jobs.push(fetchText("errors.md").then(md => {
+    jobs.push(fetchDoc("errors.md").then(md => {
       state.errorsRaw = md;
       state.errors = state.errors || parseErrors(md);
       state.errorKb = state.errorKb || parseErrorKb(md);
@@ -1415,9 +1424,13 @@ function route() {
   if (key === "kline" && state.kline) return renderKline();
 
   if (key === "kline") {
-    ensureKline().then(days => {
+    const first = state.klinePromise || Promise.resolve(null);
+    first.then(days => {
+      if (days && days.length) return days;
+      return ensureKline().then(d => (d && d.length ? d : null));
+    }).then(days => {
       if ((location.hash || "#plan").replace("#", "") !== "kline") return;
-      if (days.length) renderKline();
+      if (days) renderKline();
       else $("view").innerHTML = pageHead("学习K线", "") + '<div class="empty">还没有可绘制的学习日数据</div>';
     }).catch(() => {
       $("view").innerHTML = '<div class="empty">文档加载失败，请刷新重试</div>';
@@ -1428,7 +1441,7 @@ function route() {
   const file = key === "errors" ? "errors.md" : key === "daily" ? "daily.md"
     : key === "translate" ? "translate.md" : key === "qa" ? "qa.md"
     : key === "review" ? "review.md" : "plan.md";
-  fetchText(file).then(md => {
+  fetchDoc(file).then(md => {
     if (key === "errors") { state.errorsRaw = md; state.errors = parseErrors(md); state.errorKb = parseErrorKb(md); }
     else if (key === "daily") { state.dailyRaw = md; state.daily = parseDaily(md); }
     else if (key === "translate") { state.trRaw = md; state.tr = parseTranslate(md); }
@@ -1455,29 +1468,29 @@ document.addEventListener("keydown", e => {
 window.addEventListener("hashchange", route);
 
 function preload() {
-  const pPlan = fetchText("plan.md").then(md => {
+  const pPlan = fetchDoc("plan.md").then(md => {
     state.planRaw = md; state.plan = parsePlan(md);
     $("badgePlan").textContent = "Day " + (state.plan.day || "--");
   }).catch(() => {});
-  const pDaily = fetchText("daily.md").then(md => {
+  const pDaily = fetchDoc("daily.md").then(md => {
     state.dailyRaw = md; state.daily = parseDaily(md);
     $("badgeDaily").textContent = state.daily.streak + " 天";
   }).catch(() => {});
-  const pErrors = fetchText("errors.md").then(md => {
+  const pErrors = fetchDoc("errors.md").then(md => {
     state.errorsRaw = md; state.errors = parseErrors(md); state.errorKb = parseErrorKb(md);
     const n = state.errors.filter(e => !e.done).length;
     $("badgeErrors").textContent = String(n);
     $("badgeErrors").className = n ? "badge hot" : "badge";
   }).catch(() => {});
-  fetchText("translate.md").then(md => {
+  fetchDoc("translate.md").then(md => {
     state.trRaw = md; state.tr = parseTranslate(md);
     $("badgeTr").textContent = state.tr.length + " 段";
   }).catch(() => {});
-  fetchText("qa.md").then(md => {
+  fetchDoc("qa.md").then(md => {
     state.qaRaw = md; state.qa = parseQa(md);
     $("badgeQa").textContent = String(state.qa.length);
   }).catch(() => {});
-  fetchText("review.md").then(md => {
+  fetchDoc("review.md").then(md => {
     state.rvRaw = md; state.rv = parseQa(md);
     $("badgeRv").textContent = "Day " + latestReviewDay();
   }).catch(() => {});
@@ -1485,10 +1498,11 @@ function preload() {
     state.words = WORDS;
     $("badgeVocab").textContent = String(WORDS.length);
   }
-  Promise.all([pPlan, pDaily, pErrors]).then(() => {
-    if (!state.planRaw || !state.dailyRaw || !state.errorsRaw) return;
+  state.klinePromise = Promise.all([pPlan, pDaily, pErrors]).then(() => {
+    if (!state.planRaw || !state.dailyRaw || !state.errorsRaw) return null;
     if (!state.kline) state.kline = buildKline();
     if (state.kline.length) $("badgeKline").textContent = state.kline[state.kline.length - 1].close.toFixed(1);
+    return state.kline;
   });
 }
 
