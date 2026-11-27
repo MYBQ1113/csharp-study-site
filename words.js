@@ -1,0 +1,22 @@
+﻿const WORDS = [
+    { word: "Console",   pron: "康搜",     meaning: "控制台（那个黑窗口）",            where: "Console.WriteLine(...)",     day: 1 },
+    { word: "Write",     pron: "瑞特",     meaning: "写",                              where: "Console.Write(...)",         day: 1 },
+    { word: "WriteLine", pron: "瑞特·赖恩", meaning: "写一行，并在末尾换行",            where: "Console.WriteLine(...)",     day: 1 },
+    { word: "Read",      pron: "瑞德",     meaning: "读",                              where: "Console.ReadLine()",         day: 1 },
+    { word: "ReadLine",  pron: "瑞德·赖恩", meaning: "读一行（停下来等用户输入）",       where: "string input = Console.ReadLine()", day: 1 },
+    { word: "Line",      pron: "赖恩",     meaning: "行、一行",                        where: "WriteLine / ReadLine",       day: 1 },
+    { word: "int",       pron: "英特",     meaning: "integer 的缩写，32 位整数",        where: "int age = 18;",              day: 1 },
+    { word: "double",    pron: "打波",     meaning: "双精度小数（64 位浮点数）",        where: "double price = 9.9;",        day: 1 },
+    { word: "string",    pron: "斯追应",   meaning: "字符串，一串文字（要用双引号）",     where: "string name = \"Luna\";",    day: 1 },
+    { word: "bool",      pron: "布尔",     meaning: "boolean 的缩写，只有 true / false", where: "bool isStudent = true;",     day: 1 },
+    { word: "true",      pron: "处",       meaning: "真",                              where: "bool isStudent = true;",     day: 1 },
+    { word: "false",     pron: "佛斯",     meaning: "假",                              where: "bool isStudent = false;",    day: 1 },
+    { word: "Parse",     pron: "帕斯",     meaning: "解析：把文字转成数字",              where: "int.Parse(input)",           day: 1 },
+    { word: "Try",       pron: "踹",       meaning: "尝试（TryParse = 尝试解析，失败不崩溃）", where: "int.TryParse(input, out number)", day: 1 },
+    { word: "if",        pron: "衣服",     meaning: "如果",                            where: "if (age >= 18) { }",         day: 1 },
+    { word: "else",      pron: "挨尔丝",   meaning: "否则",                            where: "else { }",                   day: 1 },
+    { word: "null",      pron: "纳尔",     meaning: "空值，代表「什么都没有」，不是 0",  where: "string? input = Console.ReadLine();", day: 1 },
+    { word: "out",       pron: "奥特",     meaning: "输出参数：方法把结果写回这个变量",   where: "int.TryParse(input, out number)", day: 1 },
+    { word: "error",     pron: "艾若",     meaning: "错误（红色波浪线，必须改）",        where: "编译错误 error CS1002",      day: 1 },
+    { word: "warning",   pron: "沃宁",     meaning: "警告（绿色波浪线，能运行但有隐患）", where: "warning CS8600",             day: 1 }
+  ];
