@@ -18,5 +18,9 @@
     { word: "null",      pron: "纳尔",     meaning: "空值，代表「什么都没有」，不是 0",  where: "string? input = Console.ReadLine();", day: 1 },
     { word: "out",       pron: "奥特",     meaning: "输出参数：方法把结果写回这个变量",   where: "int.TryParse(input, out number)", day: 1 },
     { word: "error",     pron: "艾若",     meaning: "错误（红色波浪线，必须改）",        where: "编译错误 error CS1002",      day: 1 },
-    { word: "warning",   pron: "沃宁",     meaning: "警告（绿色波浪线，能运行但有隐患）", where: "warning CS8600",             day: 1 }
+    { word: "warning",   pron: "沃宁",     meaning: "警告（绿色波浪线，能运行但有隐患）", where: "warning CS8600",             day: 1 },
+    { word: "switch",    pron: "斯威奇",   meaning: "切换：拿一个值去匹配下面的分支",     where: "switch (input) { }",         day: 2 },
+    { word: "case",      pron: "凯斯",     meaning: "情况：要和 switch 的值逐字比对的分支", where: "case \"A\": ...",           day: 2 },
+    { word: "default",   pron: "迪佛特",   meaning: "默认：所有 case 都不匹配时走这里",   where: "default: ...",               day: 2 },
+    { word: "break",     pron: "布雷克",   meaning: "跳出：结束当前分支，防止穿透",       where: "case \"A\": ... break;",     day: 2 }
   ];

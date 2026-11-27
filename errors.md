@@ -19,6 +19,7 @@
 | E003 | 2026-11-26 | `warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型` + `warning CS8604: 形参"s"可能传入 null`（绿色波浪线） | Program.cs:20、21 | 以为绿色线是语法错误 | 只是**警告**：`Console.ReadLine()` 的返回类型是 `string?`，可能为 null，赋给 `string` 会提示；`int.Parse` 不能接收 null | 用 `int.TryParse(input, out number)`，或把输入变量声明为 `string?` 并判空 | [x] |
 | E004 | 2026-11-26 | 逻辑顺序错误：商的计算写在 `if (num2 == 0)` 之前，除零时输出 `∞` | 2026.11.26习题\Program.cs:21 | 以为会崩溃报错 | 因为先转成了 `double`，`10.0 / 0` 不抛异常而是返回无穷大；不转 double 才会抛 `DivideByZeroException` | 删掉提前的那行，把商只放在 `else` 分支里 | [x] |
 | E005 | 2026-11-26 | 命名规范：`String?` 首字母大写、变量用单大写字母 `C` / `F` | 2026.11.26习题1\Program.cs:2、3 | 以为大写的 `String` 才是标准写法 | C# 惯例：类型关键字用小写 `string`；变量用小写开头 camelCase，单大写字母留给类名 | 改为 `string? cInput`、`decimal c`、`decimal f` | [x] |
+| E006 | 2026-11-27 | 非报错，理解偏差：`switch` 的 `case` 标签写成数字 `"1"`–`"5"`，题目却要求输入字母 A–E，结果不管输入什么都落进 `default` | 学习\2026.11.27.3\Program.cs:6–19 | 以为 `case` 是按顺序编号，第 1 个分支就写 `"1"` | `case` 后面是**要和 `switch (input)` 里的值逐字比对的内容**；输入是字母就必须写 `case "A":`，写 `"1"` 永远不相等 | 把标签改成题目要求的 `"A"`–`"E"`；下次写 `case` 前先问「用户实际会敲什么」 | [ ] |
 
 ---
 

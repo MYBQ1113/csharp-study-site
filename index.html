@@ -963,6 +963,11 @@ function renderQa() {
 }
 
 /* ============ 复盘 ============ */
+function latestReviewDay() {
+  const nums = [...(state.rvRaw || "").matchAll(/^##\s*Day\s*(\d+)/gm)].map(m => Number(m[1]));
+  return nums.length ? String(Math.max(...nums)).padStart(2, "0") : "--";
+}
+
 function renderReview() {
   const items = state.rv;
   let html = pageHead("学习复盘", "每天一篇 · " + items.length + " 个小节");
@@ -971,7 +976,7 @@ function renderReview() {
     '<button class="clear" id="rvClear">×</button></div></div>';
   html += '<div class="meta" id="rvMeta"></div><div id="rvBody"></div>';
   $("view").innerHTML = html;
-  $("badgeRv").textContent = "Day 01";
+  $("badgeRv").textContent = "Day " + latestReviewDay();
 
   const q = $("rvQ");
   q.value = rvKeyword;
@@ -1073,7 +1078,7 @@ function preload() {
   }).catch(() => {});
   fetchText("review.md").then(md => {
     state.rvRaw = md; state.rv = parseQa(md);
-    $("badgeRv").textContent = "Day 01";
+    $("badgeRv").textContent = "Day " + latestReviewDay();
   }).catch(() => {});
   if (typeof WORDS !== "undefined") {
     state.words = WORDS;
