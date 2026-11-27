@@ -64,6 +64,7 @@
 - 发布目录：`study-site/`（由 `sync.ps1` 从源文件同步）
 - 仓库：`https://github.com/MYBQ1113/csharp-study-site`
 - 站点：`https://mybq1113.github.io/csharp-study-site/`
+- 同步差异（2026-11-27）：本地 `学习站/` 与仓库逐文件比对，`plan.md`、`daily.md`、`errors.md`、`review.md`、`translate.md`、`qa.md`、`index.html` 完全一致（Day 01 七问固化 1–7 已在仓库 `errors.md` / `review.md` 中）；`words.js` 数据相同，本地版多两行首缩进与末尾空行，保留仓库的无缩进版本；Day 02 进度、E001 已复发 6 次等仅存在于本文件，已保留。
 
 ## 六、学生本地代码位置
 
