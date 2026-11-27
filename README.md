@@ -20,21 +20,17 @@
 - 新增答疑：在 `qa.md` 末尾追加 `## 问题标题`
 - 错误本保持表格格式（`| E00X | ... |`）
 
-## 一人发布 + 多人编辑（本次采用）
+## 发布方式（已配置好）
 
-1. 主账号在 GitHub 建仓库 `csharp-study-site`（Private 或 Public 都行）
-2. 上传本目录全部文件
-3. Cloudflare Pages 连接该仓库：
-   - Framework preset：`None`
-   - Build command：留空
-   - Build output directory：`/`
-4. 得到 `https://xxx.pages.dev`，之后任何改动自动上线
-5. GitHub 仓库 → Settings → Collaborators，邀请其他账号
+- 仓库：`https://github.com/MYBQ1113/csharp-study-site`（Public）
+- 站点：`https://mybq1113.github.io/csharp-study-site/`
+- 自动部署：`.github/workflows/pages.yml`，推送到 `main` 后约 30 秒自动上线
 
-其他账号的操作方式：
-- 在 GitHub 网页上点开 `review.md` → 编辑铅笔 → 提交
-- 约 30 秒后网站自动更新
-- 也可以用 GitHub Desktop 把仓库克隆到本地，用 VS Code 改完提交
+## 多人协作
+
+1. 仓库 → Settings → Collaborators → Add people，邀请其他 GitHub 账号
+2. 对方接受邀请后，在网页上直接编辑 `.md` 文件并提交，网站自动更新
+3. 需要本地编辑时：`git clone` 到本地，改完 `git push`
 
 ## 本地更新流程（主账号）
 
