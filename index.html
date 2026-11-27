@@ -295,13 +295,14 @@
   .kcandle { cursor: pointer; outline: none; }
   .kcandle .khit { fill: transparent; }
   .kcandle:hover .khit, .kcandle:focus .khit { fill: rgba(255,255,255,.04); }
-  .kcandle.sel .khit { fill: rgba(77,163,255,.055); }
+  .kcandle.sel .khit { fill: transparent; }
   .kbody { stroke-width: 1; }
   .kwk { fill: none; stroke-width: 1.5; stroke-linecap: round; }
   .kcandle.up .kbody { fill: #ef4444; stroke: #ef4444; }
   .kcandle.up .kwk { stroke: #ef4444; }
   .kcandle.down .kbody { fill: #22c55e; stroke: #22c55e; }
   .kcandle.down .kwk { stroke: #22c55e; }
+  .kcandle.sel .kbody { stroke: #e6e8ec; stroke-width: 2; }
   .ktip {
     position: absolute; display: none; pointer-events: none; z-index: 6;
     background: #111317; border: 1px solid var(--line); border-radius: 8px;
@@ -1079,7 +1080,7 @@ function klineAlgoCard() {
   return '<div class="card"><h3>算法说明 <span class="pill">可核对</span></h3>' +
     '<ol class="kalgo">' +
     "<li><b>收盘 · 学习指数</b> = 40 × 练习通过率 + 40 × (自评均分 ÷ 5) + 20 × 错误控制，满分 100 分。</li>" +
-    "<li><b>错误控制</b> = <code>max(0, 1 − 0.15 × 当日新增错误条数)</code>，每新增 1 条错误扣 3 分，6 条及以上该项归零。</li>" +
+    "<li><b>错误控制</b> = <code>max(0, 1 − 0.15 × 当日新增错误条数)</code>，每新增 1 条错误扣 3 分，7 条及以上该项归零。</li>" +
     "<li><b>开盘</b> = 前一个学习日的收盘；第一个学习日固定以 <code>60</code> 为基准起步，让蜡烛首尾相连。</li>" +
     "<li><b>最高</b> = max(开盘, 收盘) + 4 × (当日单项最高自评分 − 自评均分)，代表当天最亮的那个知识点把指数向上顶了多少。</li>" +
     "<li><b>最低</b> = min(开盘, 收盘) − 2 × 当日新增错误条数，代表当天的卡点把指数向下拖了多少。</li>" +
@@ -1155,8 +1156,8 @@ function renderKline() {
     g.classList.toggle("sel", i === klineSel);
     g.addEventListener("mousemove", ev => {
       tip.innerHTML = "<b>Day " + d.day + "</b> " + esc(d.date) +
-        "<br>开 " + d.open.toFixed(1) + " · 收 <span class=\"" + cls + "\">" + d.close.toFixed(1) + "</span>" +
-        "<br>高 " + d.high.toFixed(1) + " · 低 " + d.low.toFixed(1) +
+        "<br>开 " + d.open.toFixed(1) + " · 高 " + d.high.toFixed(1) +
+        "<br>低 " + d.low.toFixed(1) + " · 收 <span class=\"" + cls + "\">" + d.close.toFixed(1) + "</span>" +
         "<br><span class=\"" + cls + "\">" + (d.change >= 0 ? "+" : "−") + Math.abs(d.changePct).toFixed(1) + "%</span>";
       tip.style.display = "block";
       const r = wrap.getBoundingClientRect();
